@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: environment/Dockerfile
       network: "host"
+    volumes:
+      - ..:/app:cached
     tty: true
     user: vscode
     network_mode: host

@@ -14,7 +14,7 @@ EXPOSE 8000
 RUN sudo apt update && sudo apt-get install -y git lsof
 RUN git config --global --add safe.directory /workspace
 
-COPY src/requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
+COPY . app/
+RUN pip install -r app/src/requirements.txt
 
 USER $USERNAME
