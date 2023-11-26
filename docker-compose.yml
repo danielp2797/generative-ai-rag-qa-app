@@ -1,0 +1,11 @@
+services:
+  chatgpt_qa:
+    build:
+      context: .
+      dockerfile: environment/Dockerfile
+      network: "host"
+    tty: true
+    user: vscode
+    network_mode: host
+    
+  
