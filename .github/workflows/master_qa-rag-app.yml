@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'qa-rag-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E957C15B0BF465C9F5235400375F7D3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_95BAAF2776FA40AF8879AB28CDE06D51 }}
