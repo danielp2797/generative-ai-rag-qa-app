@@ -8,7 +8,7 @@ import logging
 import chainlit as cl
 from dotenv import load_dotenv
 from dotenv import dotenv_values
-from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQAWithSourcesChain
@@ -21,11 +21,14 @@ from langchain.prompts.chat import (
 from pypdf import PdfReader
 from docx import Document
 
+
 load_dotenv()
 # Read environment variables
 temperature = float(os.environ.get("TEMPERATURE", 0.9))
-api_key = os.getenv("OPENAI_KEY")
-model_id = os.getenv("HUGGING_FACE_TRANSFORMER")
+api_key = os.getenv("OPENAI_API_KEY")
+model = os.getenv("OPENAI_MODEL")
+embedding = os.getenv("OPENAI_EMBEDDING")
+api_version = os.getenv("OPENAI_API_VERSION")
 max_size_mb = int(os.getenv("CHAINLIT_MAX_FILE_SIZE_MB", 100))
 max_files = int(os.getenv("CHAINLIT_MAX_FILES", 10))
 text_splitter_chunk_size = int(os.getenv("TEXT_SPLITTER_CHUNK_SIZE", 1000))
@@ -35,6 +38,8 @@ max_retries = int(os.getenv("MAX_RETRIES", 16))
 
 
 openai.api_key = api_key
+openai.model = model
+openai.api_version = api_version
 
 # Load environment variables from .env file
 if os.path.exists(".env"):
@@ -148,9 +153,13 @@ async def start():
     metadatas = [{"source": f"{i}-pl"} for i in range(len(all_texts))]
 
     # Create a Chroma vector store
-    embeddings = HuggingFaceEmbeddings(
-        model_name=model_id
-        )
+    embeddings = OpenAIEmbeddings(
+        deployment = embedding,
+        openai_api_key = openai.api_key,
+        openai_api_version = openai.api_version,
+        chunk_size = embeddings_chunk_size
+    )
+    
 
     # Create a Chroma vector store
     db = await cl.make_async(Chroma.from_texts)(
