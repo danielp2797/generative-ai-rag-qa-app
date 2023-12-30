@@ -308,6 +308,8 @@ pypdf==3.17.4
     # via -r requirements.in
 pypika==0.48.9
     # via chromadb
+pysqlite3-binary==0.5.2.post2
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via
     #   kubernetes
