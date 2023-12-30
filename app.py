@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from dotenv import dotenv_values
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts.chat import (
@@ -161,8 +161,8 @@ async def start():
     )
     
 
-    # Create a Chroma vector store
-    db = await cl.make_async(Chroma.from_texts)(
+    # Create a vector store
+    db = await cl.make_async(FAISS.from_texts)(
         all_texts, embeddings, metadatas = metadatas
     )
 
