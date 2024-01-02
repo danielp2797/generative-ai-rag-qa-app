@@ -79,18 +79,6 @@ chain_type_kwargs = {"prompt": prompt}
 
 @cl.on_chat_start
 async def start():
-    await cl.Avatar(
-        name = "Chatbot",
-        url = "https://cdn-icons-png.flaticon.com/512/8649/8649595.png"
-    ).send()
-    await cl.Avatar(
-        name = "Error",
-        url = "https://cdn-icons-png.flaticon.com/512/8649/8649595.png"
-    ).send()
-    await cl.Avatar(
-        name = "User",
-        url = "https://media.architecturaldigest.com/photos/5f241de2c850b2a36b415024/master/w_1600%2Cc_limit/Luke-logo.png"
-    ).send()
 
     # Initialize the file list
     files = None
